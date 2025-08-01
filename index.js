@@ -4,26 +4,26 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
-// ✅ Enable CORS for your Wix domain
+// ✅ CORS setup
 app.use(cors({
   origin: 'https://www.getveloce.com',
-  methods: ['POST'],
-  allowedHeaders: ['Content-Type']
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+  credentials: true
 }));
+app.options('*', cors());
 
+// ✅ Body parser
 app.use(bodyParser.json());
 
-// ✅ Your /api/chat endpoint
+// ✅ API endpoint
 app.post('/api/chat', async (req, res) => {
   try {
     const { message } = req.body;
-
-    // Optional: log incoming message
-    console.log(`Incoming message: ${message}`);
-
     const apiKey = process.env.OPENAI_API_KEY;
+
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
