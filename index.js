@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 
 // ✅ Enable CORS for your Wix domain
 app.use(cors({
