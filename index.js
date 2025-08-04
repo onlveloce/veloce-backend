@@ -2,53 +2,75 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const cheerio = require('cheerio'); // for lightweight HTML scraping
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
-// ✅ CORS setup
-app.use(cors({
-  origin: 'https://www.getveloce.com',
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
-  credentials: true
-}));
-app.options('*', cors());
+// Enable CORS for any origin (for Render deployment)
+app.use(cors());
 
-// ✅ Body parser
 app.use(bodyParser.json());
 
-// ✅ API endpoint
 app.post('/api/chat', async (req, res) => {
   try {
-    const { message } = req.body;
-    const apiKey = process.env.OPENAI_API_KEY;
+    const { message, domain } = req.body;
+    console.log(`🔹 Message from ${domain}: ${message}`);
+
+    // Optional: scrape content from the domain
+    const scrapedContent = await scrapeSiteContent(domain);
+
+    // Format content to send to OpenAI
+    const systemPrompt = `You are Aria, a helpful and intelligent assistant for the business website: ${domain}.
+Only use the provided content to answer questions. If unsure, say: "Let me get back to you on that.".
+Here’s the content from the website:
+---
+${scrapedContent}
+`;
 
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
         model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: message }],
-        temperature: 0.7
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: message }
+        ],
+        temperature: 0.6
       },
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${apiKey}`
+          Authorization: `Bearer ${OPENAI_API_KEY}`
         }
       }
     );
 
     const reply = response.data.choices[0].message.content.trim();
     res.json({ reply });
-
   } catch (error) {
-    console.error('Chat error:', error.message);
+    console.error('❌ Chat error:', error.message);
     res.status(500).json({ reply: "Sorry, something went wrong on our end." });
   }
 });
 
-// ✅ Start server
+// Basic scraping function (can be improved later)
+async function scrapeSiteContent(domain) {
+  try {
+    const url = `https://${domain}`;
+    const { data } = await axios.get(url);
+    const $ = cheerio.load(data);
+
+    // Get all paragraph text
+    const text = $('p').map((i, el) => $(el).text()).get().join('\n');
+    return text.slice(0, 4000); // Limit for OpenAI input
+  } catch (err) {
+    console.error(`❌ Scraping failed for ${domain}:`, err.message);
+    return "No content could be loaded from the site.";
+  }
+}
+
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Aria backend running on port ${PORT}`);
 });
