@@ -16,9 +16,10 @@ app.use(bodyParser.json());
 
 let chatFlow;
 try {
-  const flowPath = path.join(__dirname, 'data', 'aria-flow.json');
-  const flowData = fs.readFileSync(flowPath, 'utf8');
-  chatFlow = JSON.parse(flowData);
+const flowPath = path.join(__dirname, 'data', 'aria-flow.json');
+const flowData = fs.readFileSync(flowPath, 'utf8');
+chatFlow = JSON.parse(flowData);
+console.log("✅ Loaded Aria Flow:", chatFlow);
 } catch (error) {
   console.error('Failed to load aria-flow.json:', error.message);
   process.exit(1);
