@@ -1,36 +1,39 @@
 {
-  "greeting": {
-    "message": "Hi, I’m Aria 👋 I’m still in training, but I’d love to tell you about Veloce. We’re an AI-powered chat platform for property businesses — helping teams capture leads 24/7 and qualify them instantly.",
+  "welcome": {
+    "message": "Hi 👋 I’m Aria, your assistant from Veloce. I’m still in training, but I’d love to keep you updated!",
     "next": "ask_name"
   },
   "ask_name": {
-    "message": "What’s your name?",
-    "next": "acknowledge_name"
+    "message": "Can I please start with your name?",
+    "store": "name",
+    "next": "ask_email"
   },
-  "acknowledge_name": {
-    "message": "Thanks {{name}}! I’m still in testing mode. Could I please get your email so I can keep you updated on our launch?",
-    "capture": "email",
+  "ask_email": {
+    "message": "Thanks {{name}}! In case our chat drops off, may I have your email so I can send you a summary and updates?",
+    "store": "email",
     "next": "ask_phone"
   },
   "ask_phone": {
-    "message": "Thanks for sharing that. Could you also drop your phone number in case we want to notify you by SMS or offer a call from our team?",
-    "capture": "phone",
+    "message": "Appreciate that. Could I also grab your phone number? We’ll only use it to notify you of launch or updates.",
+    "store": "phone",
+    "next": "ask_role"
+  },
+  "ask_role": {
+    "message": "And what’s your role or title at your company?",
+    "store": "role",
     "next": "ask_company"
   },
   "ask_company": {
-    "message": "Which company are you reaching out from, and what’s your role there?",
-    "capture": "company_role",
-    "next": "ask_current_chat"
+    "message": "Finally, which company are you reaching out from?",
+    "store": "company",
+    "next": "done"
   },
-  "ask_current_chat": {
-    "message": "Are you currently using any chat platform on your site? If yes, are you satisfied with it?",
-    "capture": "current_chat",
-    "next": "final"
+  "done": {
+    "message": "Thank you {{name}}! You’re all set. Our team will be in touch soon. 😊",
+    "end": true
   },
-  "final": {
-    "message": "Thanks for sharing everything! If you'd like someone from our office to follow up, we’d be happy to chat further. 😊"
-  },
-  "fallback": {
-    "message": "Sorry, as mentioned I’m still in training phase. Could I please get someone to ring you or email with the right answer as I do not want to mislead you."
+  "unknown": {
+    "message": "Sorry, as mentioned I’m still in training phase. Could I please get someone to ring you or email with the right answer as I do not want to mislead you.",
+    "end": false
   }
 }
