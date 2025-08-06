@@ -1,14 +1,22 @@
 [
   {
-    "questions": ["hello", "hi", "hey"],
-    "answer": "Hi 👋 I'm Aria, Veloce’s intelligent assistant. May I ask your name so I can keep you updated?"
+    "q": ["hi", "hello", "hey", "who are you"],
+    "a": "Hi 👋 I'm Aria, your assistant for Veloce. Let me get a few quick details so I can send you updates!"
   },
   {
-    "questions": ["thank you", "thanks"],
-    "answer": "You're welcome! 😊"
+    "q": ["my name is", "i'm", "i am"],
+    "a": "Thanks for that. Could I please grab your email too so we can keep you updated?"
   },
   {
-    "questions": ["pricing", "cost", "how much"],
-    "answer": "Our pricing starts at $1,000/month with a $5,000 onboarding fee. Would you like me to connect you to someone from our team?"
+    "q": ["my email is", "email", "you can email me"],
+    "a": "Perfect, thank you! One last thing — what's your phone number in case our team wants to follow up with a quick call?"
+  },
+  {
+    "q": ["phone", "number", "call me"],
+    "a": "Appreciate it! You're all set. A team member will be in touch soon. 😊"
+  },
+  {
+    "q": ["not sure", "don't know", "maybe later"],
+    "a": "No worries at all! You're welcome to explore and reach out anytime."
   }
 ]
