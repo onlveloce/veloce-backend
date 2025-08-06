@@ -1,39 +1,14 @@
-{
-  "welcome": {
-    "message": "Hi 👋 I’m Aria, your assistant from Veloce. I’m still in training, but I’d love to keep you updated!",
-    "next": "ask_name"
+[
+  {
+    "questions": ["hello", "hi", "hey"],
+    "answer": "Hi 👋 I'm Aria, Veloce’s intelligent assistant. May I ask your name so I can keep you updated?"
   },
-  "ask_name": {
-    "message": "Can I please start with your name?",
-    "store": "name",
-    "next": "ask_email"
+  {
+    "questions": ["thank you", "thanks"],
+    "answer": "You're welcome! 😊"
   },
-  "ask_email": {
-    "message": "Thanks {{name}}! In case our chat drops off, may I have your email so I can send you a summary and updates?",
-    "store": "email",
-    "next": "ask_phone"
-  },
-  "ask_phone": {
-    "message": "Appreciate that. Could I also grab your phone number? We’ll only use it to notify you of launch or updates.",
-    "store": "phone",
-    "next": "ask_role"
-  },
-  "ask_role": {
-    "message": "And what’s your role or title at your company?",
-    "store": "role",
-    "next": "ask_company"
-  },
-  "ask_company": {
-    "message": "Finally, which company are you reaching out from?",
-    "store": "company",
-    "next": "done"
-  },
-  "done": {
-    "message": "Thank you {{name}}! You’re all set. Our team will be in touch soon. 😊",
-    "end": true
-  },
-  "unknown": {
-    "message": "Sorry, as mentioned I’m still in training phase. Could I please get someone to ring you or email with the right answer as I do not want to mislead you.",
-    "end": false
+  {
+    "questions": ["pricing", "cost", "how much"],
+    "answer": "Our pricing starts at $1,000/month with a $5,000 onboarding fee. Would you like me to connect you to someone from our team?"
   }
-}
+]
